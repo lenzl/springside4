@@ -8,7 +8,6 @@ package org.springside.modules.metrics.reporter;
 import java.util.Map;
 
 import org.springside.modules.metrics.Counter;
-import org.springside.modules.metrics.Gauge;
 import org.springside.modules.metrics.Histogram;
 import org.springside.modules.metrics.Timer;
 
@@ -19,6 +18,5 @@ import org.springside.modules.metrics.Timer;
  * 
  */
 public interface Reporter {
-	void report(Map<String, Gauge> gauges, Map<String, Counter> counters, Map<String, Histogram> histograms,
-			Map<String, Timer> timers);
+	void report(Map<String, Counter> counters, Map<String, Histogram> histograms, Map<String, Timer> timers);
 }

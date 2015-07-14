@@ -10,9 +10,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.springside.modules.nosql.redis.pool.JedisPoolBuilder;
-import org.springside.modules.nosql.redis.service.scheduler.AdvancedJobConsumer;
-import org.springside.modules.nosql.redis.service.scheduler.SimpleJobConsumer;
+import org.springside.examples.showcase.demos.redis.JedisPoolFactory;
+import org.springside.modules.nosql.redis.JedisUtils;
+import org.springside.modules.nosql.redis.scheduler.AdvancedJobConsumer;
+import org.springside.modules.nosql.redis.scheduler.SimpleJobConsumer;
 import org.springside.modules.test.benchmark.ConcurrentBenchmark;
 import org.springside.modules.utils.Threads;
 
@@ -40,7 +41,8 @@ public class AdvancedJobConsumerBatchPopDemo extends SimpleJobConsumerDemo {
 		batchSize = Integer.parseInt(System.getProperty("batchsize",
 				String.valueOf(AdvancedJobConsumer.DEFAULT_BATCH_SIZE)));
 
-		pool = new JedisPoolBuilder().setUrl("direct://localhost:6379?poolSize=" + threadCount).buildPool();
+		pool = JedisPoolFactory.createJedisPool(JedisUtils.DEFAULT_HOST, JedisUtils.DEFAULT_PORT,
+				JedisUtils.DEFAULT_TIMEOUT, threadCount);
 
 		ExecutorService threadPool = Executors.newFixedThreadPool(threadCount);
 		for (int i = 0; i < threadCount; i++) {

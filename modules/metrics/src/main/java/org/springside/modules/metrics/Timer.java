@@ -34,7 +34,7 @@ public class Timer {
 
 	public static Clock clock = Clock.DEFAULT;
 
-	public TimerMetric latestMetric = new TimerMetric();
+	public TimerMetric snapshot = new TimerMetric();
 
 	private Counter counter;
 	private Histogram histogram;
@@ -63,13 +63,13 @@ public class Timer {
 		TimerMetric metric = new TimerMetric();
 		metric.counterMetric = counter.calculateMetric();
 		metric.histogramMetric = histogram.calculateMetric();
-		latestMetric = metric;
+		snapshot = metric;
 		return metric;
 	}
 
 	@Override
 	public String toString() {
-		return "Timer [latestMetric=" + latestMetric + ", counter=" + counter + ", histogram=" + histogram + "]";
+		return "Timer [counter=" + counter + ", histogram=" + histogram + "]";
 	}
 
 	/**
